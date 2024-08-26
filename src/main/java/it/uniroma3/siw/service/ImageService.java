@@ -1,10 +1,10 @@
-package prova.service;
+package it.uniroma3.siw.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import prova.model.Image;
-import prova.repository.ImageRepository;
+import it.uniroma3.siw.model.Image;
+import it.uniroma3.siw.repository.ImageRepository;
 
 
 @Service

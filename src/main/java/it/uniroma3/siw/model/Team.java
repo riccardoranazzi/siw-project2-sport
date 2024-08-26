@@ -1,4 +1,4 @@
-package prova.model;
+package it.uniroma3.siw.model;
 
 
 import jakarta.persistence.CascadeType;

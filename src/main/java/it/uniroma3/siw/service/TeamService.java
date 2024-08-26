@@ -1,4 +1,4 @@
-package prova.service;
+package it.uniroma3.siw.service;
 
 import java.io.IOException;
 import java.util.List;
@@ -7,16 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import prova.model.Image;
-import prova.model.Team;
-import prova.repository.ImageRepository;
-import prova.repository.ProductRepository;
+import it.uniroma3.siw.model.Image;
+import it.uniroma3.siw.model.Team;
+import it.uniroma3.siw.repository.ImageRepository;
+import it.uniroma3.siw.repository.TeamRepository;
 
 @Service
-public class ProductService {
+public class TeamService {
 	
  @Autowired
- private ProductRepository productRepository;
+ private TeamRepository teamRepository;
  @Autowired
  private ImageRepository imageRepository;
  
@@ -25,14 +25,14 @@ public class ProductService {
      image.setImageData(imageFile.getBytes());
      image.setType(imageFile.getContentType());
      image = imageRepository.save(image);
-     Team product = new Team();
-     product.setName(name);
-     product.setImage(image);
-     return productRepository.save(product);
+     Team team = new Team();
+     team.setName(name);
+     team.setImage(image);
+     return teamRepository.save(team);
  }
  
- public List<Team> getAllProducts() {
-     return productRepository.findAll();
+ public List<Team> getAllTeams() {
+     return teamRepository.findAll();
  }
 
 }

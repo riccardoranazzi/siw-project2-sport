@@ -1,4 +1,4 @@
-package prova.controller;
+package it.uniroma3.siw.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.function.ServerRequest.Headers;
 
-import prova.service.ImageService;
+import it.uniroma3.siw.service.ImageService;
 
 //ImageController.java
 @RestController
