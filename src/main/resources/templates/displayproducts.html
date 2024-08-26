@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Display Product</title>
+     <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>Display Product</h1>
+    
+  	<p th:unless="${products != null}" th:text="'No products found'">No products</p>
+	<p th:if="${products != null}" th:text="${products.size()}">Number of products</p>
+    
+    <table>
+        <tr th:each="product : ${products}">
+			<h3>Prodotto</h3>
+            <td th:text="${product.name}">Name</td>
+            <td><img th:src="@{/images/{id}(id=${product.image.id})}" class="product-image"/></td>
+        </tr>
+    </table>
+</body>
+</html>
