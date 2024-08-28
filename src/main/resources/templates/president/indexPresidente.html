@@ -12,11 +12,14 @@
             <h1>Federazione Sportiva</h1>          
         </div>
         <nav>
-			<ul>
-            <li><a href="/logout">Logout</a></li>
-            </ul>
+			<li class="username">
+				<a href="/profile" th:text="${username}">Username</a>
+            </li>
+                 
+            <li class="username">
+				 <a href="/logout">Logout</a>
+            </li>
         </nav>
-       
     </header>
 
     <div class="container">
@@ -26,14 +29,9 @@
         </a>
         <a href="/federation" class="federation">
             <h2>Informazioni sulla Federazione</h2>
-            <!-- Contenuto della sezione federazione -->
         </a>
-         <a href="/manageTeams" class="teams">
-            <h2>Gestisci le squadre</h2>
-        </a>
-        
-        <a href="/formNewTeam" class="teams">
-            <h2>Aggiungi una Squadra</h2>
+         <a href="/manageTeam" class="teams">
+            <h2>Gestisci la tua squadra</h2>
         </a>
     </div>
 </body>

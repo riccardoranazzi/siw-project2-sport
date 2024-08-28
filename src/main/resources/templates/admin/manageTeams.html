@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Squadre</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Federazione Sportiva</h1>
+        </div>
+        <nav>
+            <a href="/index">HomePage</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="team-list">
+            <h2>Le Squadre</h2>
+
+            <!-- Controlla se la lista delle squadre è vuota -->
+            <div th:if="${#lists.isEmpty(teams)}">
+                <p>Non ci sono squadre disponibili al momento.</p>
+            </div>
+
+            <!-- Mostra la lista delle squadre se non è vuota -->
+            <ul th:unless="${#lists.isEmpty(teams)}">
+                <li th:each="team : ${teams}">
+                    <a th:href="@{/team/{id}(id=${team.id})}" th:text="${team.nome}"></a>
+                </li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>

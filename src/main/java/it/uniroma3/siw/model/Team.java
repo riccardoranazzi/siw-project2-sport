@@ -12,7 +12,7 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Team {
 
-	 @Id
+	 	@Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    private Long id;
 
@@ -20,11 +20,41 @@ public class Team {
 	    
 	    private int annoFondazione;
 	    
+	    @OneToOne(cascade = CascadeType.ALL)
+	    @JoinColumn(name = "president_id", referencedColumnName = "id", nullable = true)
 	    private President president;
 	    
 	    @OneToOne(cascade = CascadeType.ALL)
 	    @JoinColumn(name="image_id")
 	    private Image image;
+	    
+	    private String indirizzo;
+	    
+	    
+
+		public int getAnnoFondazione() {
+			return annoFondazione;
+		}
+
+		public void setAnnoFondazione(int annoFondazione) {
+			this.annoFondazione = annoFondazione;
+		}
+
+		public President getPresident() {
+			return president;
+		}
+
+		public void setPresident(President president) {
+			this.president = president;
+		}
+
+		public String getIndirizzo() {
+			return indirizzo;
+		}
+
+		public void setIndirizzo(String indirizzo) {
+			this.indirizzo = indirizzo;
+		}
 
 		public Long getId() {
 			return id;
@@ -55,11 +85,15 @@ public class Team {
 			// TODO Auto-generated constructor stub
 		}
 
-		public Team(Long id, String name, Image image) {
+		public Team(Long id, String name, Image image, int annoFondazione, String indirizzo, President president) {
 			super();
 			this.id = id;
 			this.name = name;
 			this.image = image;
+			this.annoFondazione = annoFondazione;
+			this.indirizzo = indirizzo;
+			this.president = president;
+
 		}
 	    
 	    

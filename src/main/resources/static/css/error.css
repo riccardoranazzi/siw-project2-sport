@@ -1,0 +1,50 @@
+/* Stile generale per la pagina di errore */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+/* Contenitore principale per il messaggio di errore */
+.error-container {
+    text-align: center;
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+}
+
+/* Titolo del messaggio di errore */
+.error-container h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+/* Paragrafo del messaggio di errore */
+.error-container p {
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* Stile del pulsante di ritorno alla home */
+.error-container .btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.error-container .btn:hover {
+    background-color: #0056b3;
+}

@@ -17,9 +17,9 @@ public class President {
 	 @GeneratedValue(strategy = GenerationType.AUTO)
 	 private Long id;
 	 
-	 private String nome;
+	 private String name;
 	 
-	 private String cognome;
+	 private String surname;
 	 
 	 private String codiceFiscale;
 	 
@@ -43,20 +43,20 @@ public class President {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return user.getName();
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setName(String nome) {
+		this.name = nome;
 	}
 
-	public String getCognome() {
-		return cognome;
+	public String getSurname() {
+		return user.getSurname();
 	}
 
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public String getCodiceFiscale() {
@@ -101,7 +101,7 @@ public class President {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codiceFiscale, cognome, dataNascita, id, luogoNascita, nome, team);
+		return Objects.hash(codiceFiscale, surname, dataNascita, id, luogoNascita, name, team);
 	}
 
 	@Override
@@ -113,18 +113,18 @@ public class President {
 		if (getClass() != obj.getClass())
 			return false;
 		President other = (President) obj;
-		return Objects.equals(codiceFiscale, other.codiceFiscale) && Objects.equals(cognome, other.cognome)
+		return Objects.equals(codiceFiscale, other.codiceFiscale) && Objects.equals(surname, other.surname)
 				&& Objects.equals(dataNascita, other.dataNascita) && Objects.equals(id, other.id)
-				&& Objects.equals(luogoNascita, other.luogoNascita) && Objects.equals(nome, other.nome)
+				&& Objects.equals(luogoNascita, other.luogoNascita) && Objects.equals(name, other.name)
 				&& Objects.equals(team, other.team);
 	}
 
-	public President(Long id, String nome, String cognome, String codiceFiscale, LocalDate dataNascita,
+	public President(Long id, String codiceFiscale, LocalDate dataNascita,
 			String luogoNascita, Team team, User user) {
 		super();
 		this.id = id;
-		this.nome = nome;
-		this.cognome = cognome;
+		this.name = user.getName();
+		this.surname = user.getSurname();
 		this.codiceFiscale = codiceFiscale;
 		this.dataNascita = dataNascita;
 		this.luogoNascita = luogoNascita;

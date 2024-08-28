@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${team.name} + ' - Dettagli Squadra'">Dettagli Squadra</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Federazione Sportiva</h1>
+        </div>
+        <nav>
+            <a href="/teams">Tutte le Squadre</a>
+            <a href="/login">Login</a>
+            <a href="/register">Registrati</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section class="team-details">
+            <h2 th:text="${team.name}">Nome Squadra</h2>
+            <p><strong>Anno di Fondazione:</strong> <span th:text="${team.annoFondazione}"></span></p>
+            <p><strong>Indirizzo:</strong> <span th:text="${team.indirizzo}"></span></p>
+        </section>
+        
+        <section class="container">
+			<div>
+        		<img th:src="@{'/images/' + ${team.image.id}}" alt="Logo Squadra"/>
+   			</div>
+    		<div>
+        		<p><strong>Presidente:</strong> <span th:text="${team.president.name}">Nome Presidente</span></p>
+    		</div>		
+		</section>
+        
+        <section class="players-list">
+            <h3>Giocatori</h3>
+            <ul>
+                <li th:each="player : ${players}">
+                    <span th:text="${player.name} + ' ' + ${player.cognome}"></span> - 
+                    <span th:text="${player.ruolo}"></span>
+                </li>
+            </ul>
+            <div th:if="${#lists.isEmpty(players)}">
+                <p>Non ci sono giocatori in questa squadra.</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

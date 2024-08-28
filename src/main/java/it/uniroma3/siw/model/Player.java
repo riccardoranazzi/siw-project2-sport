@@ -17,9 +17,9 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 	
-    private String nome;
+    private String name;
     
-    private String cognome;
+    private String surname;
     
     private LocalDate dataNascita;
     
@@ -43,20 +43,20 @@ public class Player {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getName() {
+		return name;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNome(String name) {
+		this.name = name;
 	}
 
-	public String getCognome() {
-		return cognome;
+	public String getSurname() {
+		return surname;
 	}
 
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
+	public void setSurname(String surname) {
+		this.surname = surname;
 	}
 
 	public LocalDate getDataNascita() {
@@ -109,7 +109,7 @@ public class Player {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(cognome, dataFineTesseramento, dataInizioTesseramento, dataNascita, id, luogoNascita, nome,
+		return Objects.hash(surname, dataFineTesseramento, dataInizioTesseramento, dataNascita, id, luogoNascita, name,
 				ruolo, team);
 	}
 
@@ -122,20 +122,20 @@ public class Player {
 		if (getClass() != obj.getClass())
 			return false;
 		Player other = (Player) obj;
-		return Objects.equals(cognome, other.cognome)
+		return Objects.equals(surname, other.surname)
 				&& Objects.equals(dataFineTesseramento, other.dataFineTesseramento)
 				&& Objects.equals(dataInizioTesseramento, other.dataInizioTesseramento)
 				&& Objects.equals(dataNascita, other.dataNascita) && Objects.equals(id, other.id)
-				&& Objects.equals(luogoNascita, other.luogoNascita) && Objects.equals(nome, other.nome)
+				&& Objects.equals(luogoNascita, other.luogoNascita) && Objects.equals(name, other.name)
 				&& Objects.equals(ruolo, other.ruolo) && Objects.equals(team, other.team);
 	}
 
-	public Player(Long id, String nome, String cognome, LocalDate dataNascita, String luogoNascita, String ruolo,
+	public Player(Long id, String name, String surname, LocalDate dataNascita, String luogoNascita, String ruolo,
 			LocalDate dataInizioTesseramento, LocalDate dataFineTesseramento, Team team) {
 		super();
 		this.id = id;
-		this.nome = nome;
-		this.cognome = cognome;
+		this.name = name;
+		this.surname = surname;
 		this.dataNascita = dataNascita;
 		this.luogoNascita = luogoNascita;
 		this.ruolo = ruolo;
