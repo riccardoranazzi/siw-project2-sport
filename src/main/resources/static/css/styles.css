@@ -264,3 +264,34 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.player-details {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.player-image img {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.actions {
+    text-align: center;
+}
+
+.actions .btn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.actions .btn:hover {
+    background-color: #0056b3;
+}

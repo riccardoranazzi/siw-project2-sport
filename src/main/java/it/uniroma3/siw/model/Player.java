@@ -3,12 +3,14 @@ package it.uniroma3.siw.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Player {
@@ -34,6 +36,18 @@ public class Player {
     @ManyToOne
     @JoinColumn(name = "team_id")
     private Team team;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="image_id")
+    private Image image;
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
 
 	public Long getId() {
 		return id;
@@ -47,7 +61,7 @@ public class Player {
 		return name;
 	}
 
-	public void setNome(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -131,7 +145,7 @@ public class Player {
 	}
 
 	public Player(Long id, String name, String surname, LocalDate dataNascita, String luogoNascita, String ruolo,
-			LocalDate dataInizioTesseramento, LocalDate dataFineTesseramento, Team team) {
+			LocalDate dataInizioTesseramento, LocalDate dataFineTesseramento, Team team, Image image) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -142,6 +156,7 @@ public class Player {
 		this.dataInizioTesseramento = dataInizioTesseramento;
 		this.dataFineTesseramento = dataFineTesseramento;
 		this.team = team;
+		this.image = image;
 	}
 
 	public Player() {

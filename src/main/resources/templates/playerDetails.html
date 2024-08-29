@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${player.name} + ' ' + ${player.surname} + ' - Dettagli Giocatore'">Dettagli Giocatore</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<header>
+       <div class="logo">
+		   <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
+            <h1><a href="/index">Federazione Sportiva</a></h1>          
+        </div>  
+       
+        <nav>
+        		<li th:if="${username != null}" class="username">
+				 <a href="/profile" th:text="${username}">Username</a>
+                 </li>
+                 
+                 <li th:if="${username != null}" class="username">
+				 <a href="/logout">Logout</a>
+                 </li>
+                 
+                <li th:if="${username == null}" class="login">
+                    <a href="/login">Login</a>
+                </li>
+                
+                 <li th:if="${username == null}" class="register">
+					<a href="/register">Register</a>
+                 </li>
+         </nav>
+    </header>
+
+    <div class="container">
+        <div class="player-details">
+            <h2 th:text="${player.name} + ' ' + ${player.surname}">Nome Giocatore</h2>
+            
+            <div class="player-image">
+                <img th:src="@{'/images/' + ${player.image.id}}" alt="Foto di ${player.name}" />
+            </div>
+
+            <p><strong>Luogo e Data di Nascita:</strong> <span th:text="${player.luogoNascita} + ' ' + ${player.dataNascita}">Data di Nascita</span></p>            
+            <p><strong>Ruolo:</strong> <span th:text="${player.ruolo}">Ruolo</span></p>
+
+            <!-- Verifica se il giocatore è associato a una squadra -->
+            <p th:if="${player.team != null}">
+                <strong>Squadra:</strong> <span th:text="${player.team.nome}">Nome Squadra</span>
+            </p>
+            <p th:if="${player.team == null}">
+                <strong>Squadra:</strong> <span>Non assegnato</span>
+            </p>
+        </div>
+
+        <div class="actions">
+            <a th:href="@{/teams}" class="btn">Torna alla Lista Squadre</a>
+        </div>
+    </div>
+</body>
+</html>
+

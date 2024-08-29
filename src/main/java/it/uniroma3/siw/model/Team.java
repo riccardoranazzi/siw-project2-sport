@@ -1,12 +1,16 @@
 package it.uniroma3.siw.model;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -28,9 +32,18 @@ public class Team {
 	    @JoinColumn(name="image_id")
 	    private Image image;
 	    
+	    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+	    private List<Player> players = new ArrayList<>();
+	    
 	    private String indirizzo;
-	    
-	    
+
+		public List<Player> getPlayers() {
+			return players;
+		}
+
+		public void setPlayers(List<Player> players) {
+			this.players = players;
+		}
 
 		public int getAnnoFondazione() {
 			return annoFondazione;
@@ -85,7 +98,7 @@ public class Team {
 			// TODO Auto-generated constructor stub
 		}
 
-		public Team(Long id, String name, Image image, int annoFondazione, String indirizzo, President president) {
+		public Team(Long id, String name, Image image, int annoFondazione, String indirizzo, President president, List<Player> players) {
 			super();
 			this.id = id;
 			this.name = name;
@@ -93,6 +106,7 @@ public class Team {
 			this.annoFondazione = annoFondazione;
 			this.indirizzo = indirizzo;
 			this.president = president;
+			this.players = players;
 
 		}
 	    
