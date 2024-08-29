@@ -60,7 +60,7 @@ public class AuthenticationController {
 		}
         
         if(credentials.getRole().equals(Credentials.PRESIDENT_ROLE)) {
-			return "presidente/indexPresidente";
+			return "president/indexPresident";
 		}
 		return "index";
     }
@@ -85,7 +85,7 @@ public class AuthenticationController {
     		UserDetails userdetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     		Credentials credentials = credentialsService.findByUsername(userdetails.getUsername());
     		if(credentials.getRole().equals(Credentials.ADMIN_ROLE)) {
-    			return "amind/indexAdmin";
+    			return "admin/indexAdmin";
     		} else if(credentials.getRole().equals(Credentials.PRESIDENT_ROLE)) {
     			return "president/indexPresident";
     		}
