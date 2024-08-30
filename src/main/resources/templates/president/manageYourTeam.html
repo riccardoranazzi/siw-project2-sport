@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Giocatori</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="/index" class="logo-link">
+                <img src="/images/202" alt="Logo Federazione" class="logo">
+            </a>
+            <h1 class="header-title"><a href="/index">Federazione Sportiva</a></h1>
+        </div>
+        <nav class="nav-links">
+            <a href="/teams">Tutte le Squadre</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    
+    <div class="manage-team-page">
+        <div class="player-management">
+            
+            <div class="team-players">
+                <h2>Giocatori della Squadra</h2>
+                <ul>
+                    <li th:each="player : ${teamPlayers}">
+                        <span th:text="${player.name} + ' ' + ${player.surname}"></span>
+                        <strong><p th:text="'Ruolo: ' + ${player.ruolo}">Ruolo</p></strong>
+                        <form th:action="@{/removePlayerFromTeam}" method="post" style="display:inline;">
+                            <input type="hidden" name="playerId" th:value="${player.id}" />
+                            <button type="submit" class="btn btn-remove">Rimuovi</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Lista dei giocatori senza squadra -->
+            <div class="no-team-players">
+                <h2>Giocatori Senza Squadra</h2>
+                <ul>
+                    <li th:each="player : ${playersWithoutTeam}">
+                        <span th:text="${player.name} + ' ' + ${player.surname}"></span>
+                        <form th:action="@{/addPlayerToTeam}" method="post" style="display:inline;">
+                            <input type="hidden" name="playerId" th:value="${player.id}" />
+                            <button type="submit" class="btn btn-add">Aggiungi</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

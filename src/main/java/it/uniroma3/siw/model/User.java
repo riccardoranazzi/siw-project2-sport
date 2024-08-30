@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
@@ -22,6 +24,18 @@ public class User {
 	
 	@NotBlank(message = "campo obbligatorio")
 	private String surname;
+	
+	@OneToOne(optional = true) // 
+    @JoinColumn(name = "president_id") 
+    private President president;
+	
+	public President getPresident() {
+		return president;
+	}
+
+	public void setPresident(President president) {
+		this.president = president;
+	}
 
 	public Long getId() {
 		return id;

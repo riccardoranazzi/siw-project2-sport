@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import it.uniroma3.siw.model.President;
 import it.uniroma3.siw.model.Team;
+import it.uniroma3.siw.model.User;
 import it.uniroma3.siw.repository.PresidentRepository;
 
 @Service
@@ -24,9 +25,15 @@ public class PresidentService {
 		return presidentRepository.findAll();
 	}
 
+	
+	public President findByUser(User user) {
+		return presidentRepository.findByUser(user);
+	}
+	
 	public void setTeam(Long presidenteId, Team team) {
 		President president = presidentRepository.findById(presidenteId).get();
-		president.getTeam();
+		president.setTeam(team);
 		presidentRepository.save(president);
+		
 	}
 }

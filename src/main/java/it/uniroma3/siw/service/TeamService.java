@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Image;
+import it.uniroma3.siw.model.Player;
 import it.uniroma3.siw.model.President;
 import it.uniroma3.siw.model.Team;
 import it.uniroma3.siw.repository.ImageRepository;
@@ -24,6 +25,9 @@ public class TeamService {
 	@Autowired PresidentService presidentService;
 	
 	@Autowired PresidentRepository presidentRepository;
+	
+	@Autowired PlayerService playerService;
+	
 
 	public Iterable<Team> findAll() {
 		return teamRepository.findAll();
@@ -54,6 +58,10 @@ public class TeamService {
 		team.setPresident(president);
 		return teamRepository.save(team);
 		
+	}
+
+	public Team findByPresident(President president) {
+		return teamRepository.findByPresident(president);
 	}
 
 }

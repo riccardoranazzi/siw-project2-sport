@@ -25,7 +25,7 @@ public class Team {
 	    private int annoFondazione;
 	    
 	    @OneToOne(cascade = CascadeType.ALL)
-	    @JoinColumn(name = "president_id", referencedColumnName = "id", nullable = true)
+	    @JoinColumn(name = "president_id", referencedColumnName = "id")
 	    private President president;
 	    
 	    @OneToOne(cascade = CascadeType.ALL)

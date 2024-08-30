@@ -7,6 +7,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,20 @@ public class AuthenticationController {
 	@Autowired UserService userService;
 	
 	@Autowired PasswordEncoder passwordEncoder;
+	
+	@ModelAttribute("username")
+    public String addUserToModel() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication != null && authentication.isAuthenticated() && 
+            !(authentication.getPrincipal() instanceof String && authentication.getPrincipal().equals("anonymousUser"))) {
+            
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            Credentials credentials = credentialsService.findByUsername(userDetails.getUsername());
+            return credentials.getUsername();
+        }
+        return null; // Nessun utente autenticato
+    }
 	
 
     @GetMapping("/register")
@@ -70,7 +85,7 @@ public class AuthenticationController {
     	return "index";
     }
     
-    
+    @Transactional
     @GetMapping("/index")
     public String index(Model model) {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

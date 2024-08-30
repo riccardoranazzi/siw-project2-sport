@@ -27,7 +27,7 @@ public class President {
 	 
 	 private String luogoNascita;
 
-	 @OneToOne(mappedBy = "president")
+	 @OneToOne(mappedBy="president")
 	 private Team team;
 	 
 	 @OneToOne

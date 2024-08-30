@@ -7,8 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,11 +18,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Credentials;
+import it.uniroma3.siw.model.Player;
+import it.uniroma3.siw.model.President;
 import it.uniroma3.siw.model.Team;
+import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.service.CredentialsService;
+import it.uniroma3.siw.service.PlayerService;
 import it.uniroma3.siw.service.PresidentService;
 import it.uniroma3.siw.service.TeamService;
-
-//ProductController.java
 
 @Controller
 public class TeamController {
@@ -31,6 +37,33 @@ public class TeamController {
  @Autowired TeamService teamService;
  
  @Autowired PresidentService presidentService;
+ 
+ @Autowired CredentialsService credentialsService;
+ 
+ @Autowired PlayerService playerService;
+ 
+ //rendo disponibile team a tutti i metodi del controller
+ @ModelAttribute("team")
+ public Team getPresidentTeam() {
+     
+     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+     String username = auth.getName();
+
+     Credentials credentials = credentialsService.findByUsername(username);
+     User user = credentials.getUser();
+     
+     if(!credentials.getRole().equals(Credentials.PRESIDENT_ROLE)) {
+    	 return null;
+     }
+     
+     President president = user.getPresident();
+     Team team = teamService.findByPresident(president);
+     if (team == null) {
+         throw new IllegalStateException("Il presidente non è associato a nessuna squadra.");
+     }
+     return team;
+ }
+ 
  
  @GetMapping("/teams")
  public String showTeams(Model model) {
@@ -65,15 +98,25 @@ public class TeamController {
 	  return "/admin/manageTeams";
  }
  
- @GetMapping("/president/manageTeam/{teamId}")
- public String manageTeam(@PathVariable Long teamId, Model model) {
-	 
-     
-	 Team team = teamService.findById(teamId);
+ @Transactional
+ @GetMapping("/president/manageYourTeam")
+ public String manageTeam(@ModelAttribute("team")Team team, Model model) {
      model.addAttribute("team", team);
-     model.addAttribute("players", team.getPlayers());
-     return "manageTeam"; // Vista per la gestione della squadra
+     model.addAttribute("teamPlayers", team.getPlayers());
+     model.addAttribute("playersWithoutTeam", playerService.findPlayersWithoutTeam());
+     return "manageYourTeam"; 
  }
  
+ @PostMapping("/removePlayerFromTeam")
+ public String removePlayer(@RequestParam Long playerId) {
+     playerService.removePlayerFromTeam(playerId);
+     return "redirect:/team/manage";
+ }
+
+ @PostMapping("/addPlayerToTeam")
+ public String addPlayerToTeam(@RequestParam Long playerId, @ModelAttribute("team")Team team) {
+     playerService.addPlayerToTeam(playerId, team);
+     return "redirect:/team/manage";
+ }
 
 }

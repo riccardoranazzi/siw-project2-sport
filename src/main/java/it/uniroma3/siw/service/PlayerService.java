@@ -2,13 +2,16 @@ package it.uniroma3.siw.service;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import it.uniroma3.siw.model.Image;
 import it.uniroma3.siw.model.Player;
+import it.uniroma3.siw.model.Team;
 import it.uniroma3.siw.repository.ImageRepository;
 import it.uniroma3.siw.repository.PlayerRepository;
 
@@ -46,5 +49,25 @@ public class PlayerService {
 		return playerRepository.findById(playerId).get();
 		
 	}
+	
+	   @Transactional
+	    public void addPlayerToTeam(Long playerId, Team team) {
+	        Player player = playerRepository.findById(playerId)
+	            .orElseThrow(() -> new IllegalArgumentException("ID giocatore non valido"));
+	        player.setTeam(team);
+	        playerRepository.save(player);
+	    }
+
+	    @Transactional
+	    public void removePlayerFromTeam(Long playerId) {
+	        Player player = playerRepository.findById(playerId)
+	            .orElseThrow(() -> new IllegalArgumentException("ID giocatore non valido"));
+	        player.setTeam(null);
+	        playerRepository.save(player);
+	    }
+
+	    public List<Player> findPlayersWithoutTeam() {
+	        return playerRepository.findByTeamIsNull();
+	    }
 
 }
