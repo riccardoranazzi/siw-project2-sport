@@ -44,7 +44,7 @@ public class PlayerController {
 	public String createNewPLayer(@ModelAttribute("player")Player player, BindingResult bindingResult, Model model, @RequestParam("image") MultipartFile image) throws IOException{
 		playerValidator.validate(player, bindingResult);
 		playerService.createNewPlayer(player, image);
-		return "redirect:president/manageTeam";
+		return "redirect:/president/manageYourTeam";
 	}
 	
 	

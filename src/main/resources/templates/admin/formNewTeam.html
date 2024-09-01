@@ -11,12 +11,20 @@
 		   <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
             <h1><a href="/index">Federazione Sportiva</a></h1>          
         </div>  
-        <nav>
-            <ul>
-                <li><a th:href="@{/index}">Homepage</a></li>
-                <li><a th:href="@{/admin/teams}">Gestisci Squadre</a></li>
-            </ul>
-        </nav>
+      <nav>
+			<li class="username">
+				<a href="/profile" th:text="${username}">Username</a>
+            </li>
+            <li class="username">
+				<a href="/teams">Tutte le squadre</a>
+			</li>
+			 <li class="username">
+				<a href="/index">Homapage</a>
+			</li>
+            <li class="username">
+				 <a href="/logout">Logout</a>
+            </li>
+      </nav>
     </header>
 
     <section id="hero">

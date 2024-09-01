@@ -63,6 +63,7 @@ public class AuthenticationController {
         return "formLogin";
     }
 
+    @Transactional
     @GetMapping("/success")
     public String defaultSuccessAfterLogin(Model model) {
     	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

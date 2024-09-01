@@ -34,7 +34,8 @@
                     <label for="password">Password:</label>
                     <input required type="password" id="password" th:field="*{credentials.password}">
                 </div>
-                <button type="submit">Registrati</button>
+                
+                <button class="form-group" type="submit">Registrati</button>
             </form>
             
             <div th:if="${errorMessage != null}"> 

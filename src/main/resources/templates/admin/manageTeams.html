@@ -32,7 +32,7 @@
             <!-- Mostra la lista delle squadre se non è vuota -->
             <ul th:unless="${#lists.isEmpty(teams)}">
                 <li th:each="team : ${teams}">
-                    <a th:href="@{/team/{id}(id=${team.id})}" th:text="${team.nome}"></a>
+                    <a th:href="@{/manageTeam/{id}(id=${team.id})}" th:text="${team.name}"></a>
                 </li>
             </ul>
         </section>

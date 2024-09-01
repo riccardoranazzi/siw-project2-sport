@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,31 +9,57 @@
 <body>
     <header>
         <div class="logo">
-		   <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
-            <h1><a href="/index">Federazione Sportiva</a></h1>          
-        </div>  
+            <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
+            <h1><a href="/index">Federazione Sportiva</a></h1>
+        </div>
         <nav>
-            <a href="/login">Login</a>
-            <a href="/register">Registrati</a>
-        </nav>
+			
+				<li class="register">
+					 <a href="/index">Homepage</a>
+				 </li>
+				 
+        		<li th:if="${username != null}" class="username">
+				 <a href="/profile" th:text="${username}">Username</a>
+                 </li>
+                 
+                 <li th:if="${username != null}" class="username">
+				 <a href="/logout">Logout</a>
+                 </li>
+                 
+                <li th:if="${username == null}" class="login">
+                    <a href="/login">Login</a>
+                </li>
+                
+                 <li th:if="${username == null}" class="register">
+					<a href="/register">Register</a>
+                 </li>
+                 
+         </nav>
     </header>
 
-    <div class="container">
+    <div class="team-container">
         <section class="team-list">
-            <h2>Le Squadre</h2>
+            <h2 class="team-list">Le Squadre</h2>
 
-            <!-- Controlla se la lista delle squadre è vuota -->
             <div th:if="${#lists.isEmpty(teams)}">
                 <p>Non ci sono squadre disponibili al momento.</p>
             </div>
 
-            <!-- Mostra la lista delle squadre se non è vuota -->
-            <ul th:unless="${#lists.isEmpty(teams)}">
-                <li th:each="team : ${teams}">
-                    <a th:href="@{/team/{id}(id=${team.id})}" th:text="${team.name}"></a>
-                </li>
-            </ul>
+            <!-- Griglia per le squadre -->
+            <div class="team-grid" th:unless="${#lists.isEmpty(teams)}">
+                <div class="team-card" th:each="team : ${teams}">
+                    <a th:href="@{/team/{id}(id=${team.id})}" class="team-link">
+                        <div class="team-image">
+                            <img th:src="@{/images/{imageId}(imageId=${team.image.id})}" alt="Logo Squadra">
+                        </div>
+                        <div class="teams-info">
+                            <h3 th:text="${team.name}"></h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </section>
     </div>
 </body>
 </html>
+

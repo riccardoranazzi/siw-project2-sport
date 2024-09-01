@@ -7,40 +7,65 @@
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aggiorna Team</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
     <header>
-       <div class="logo">
-		   <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
-            <h1><a href="/index">Federazione Sportiva</a></h1>          
-        </div>  
-        <nav>
-            <a href="/teams">Tutte le Squadre</a>
-        </nav>
+        <div class="logo">
+            <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
+            <h1><a href="/index">Federazione Sportiva</a></h1>
+        </div>
     </header>
 
-    <div class="container">
-        <section class="team-details">
-            <h2 th:text="${team.nome}">Nome Squadra</h2>
-            <p><strong>Anno di Fondazione:</strong> <span th:text="${team.annoFondazione}"></span></p>
-            <p><strong>Indirizzo:</strong> <span th:text="${team.indirizzo}"></span></p>
-        </section>
-        
-        <section class="players-list">
-            <h3>Giocatori</h3>
-            <ul>
-                <li th:each="player : ${players}">
-                    <span th:text="${player.nome} + ' ' + ${player.cognome}"></span> - 
-                    <span th:text="${player.ruolo}"></span>
-                </li>
-            </ul>
-            <div th:if="${#lists.isEmpty(players)}">
-                <p>Non ci sono giocatori in questa squadra.</p>
+    <div class="manage-team-container">
+        <h2>Aggiorna le Informazioni del Team</h2>
+
+        <!-- Form per aggiornare le informazioni del team -->
+        <form th:action="@{/team/update}" method="post" th:object="${team}">
+            <div class="form-group">
+                <label for="name">Nome Team:</label>
+                <input type="text" id="name" th:field="*{name}" required>
             </div>
-        </section>
+
+            <div class="form-group">
+                <label for="annoFondazione">Anno di Fondazione:</label>
+                <input type="number" id="annoFondazione" th:field="*{annoFondazione}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="indirizzo">Indirizzo:</label>
+                <input type="text" id="indirizzo" th:field="*{indirizzo}" required>
+            </div>
+
+            <button type="submit">Aggiorna Informazioni Team</button>
+        </form>
+
+        <h2>Cambia Presidente del Team</h2>
+
+        <!-- Form per cambiare il presidente del team -->
+        <form th:action="@{/team/changePresident}" method="post">
+            <div class="form-group">
+                <label for="presidentId">Seleziona Nuovo Presidente:</label>
+                <select id="presidentId" name="presidentId" required>
+                    <option th:each="president : ${presidents}" 
+                            th:value="${president.id}" 
+                            th:text="${president.name} + ' ' + ${president.surname}">
+                    </option>
+                </select>
+            </div>
+
+            <button type="submit">Cambia Presidente</button>
+        </form>
     </div>
-    
+
     <footer>
         <p>&copy; 2024 Federazione sport Roma Tre.</p>
     </footer>
-    
 </body>
 </html>

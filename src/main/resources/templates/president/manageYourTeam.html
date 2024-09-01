@@ -8,15 +8,21 @@
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <a href="/index" class="logo-link">
-                <img src="/images/202" alt="Logo Federazione" class="logo">
-            </a>
-            <h1 class="header-title"><a href="/index">Federazione Sportiva</a></h1>
-        </div>
-        <nav class="nav-links">
-            <a href="/teams">Tutte le Squadre</a>
-            <a href="/logout">Logout</a>
+          <div class="logo">
+		   <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
+            <h1><a href="/index">Federazione Sportiva</a></h1>          
+        </div>  
+        
+         <nav>
+			<li class="username">
+				<a href="/profile" th:text="${username}">Username</a>
+            </li>
+            <li>
+				<a href="/teams">Tutte le squadre</a>
+			</li>
+            <li class="username">
+				 <a href="/logout">Logout</a>
+            </li>
         </nav>
     </header>
 

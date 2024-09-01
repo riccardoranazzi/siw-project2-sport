@@ -12,11 +12,29 @@
 		   <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
             <h1><a href="/index">Federazione Sportiva</a></h1>          
         </div>  
-        <nav>
-            <a href="/teams">Tutte le Squadre</a>
-            <a href="/login">Login</a>
-            <a href="/register">Registrati</a>
-        </nav>
+             <nav>
+			
+				<li class="register">
+					 <a href="/index">Homepage</a>
+				 </li>
+				 
+        		<li th:if="${username != null}" class="username">
+				 <a href="/profile" th:text="${username}">Username</a>
+                 </li>
+                 
+                 <li th:if="${username != null}" class="username">
+				 <a href="/logout">Logout</a>
+                 </li>
+                 
+                <li th:if="${username == null}" class="login">
+                    <a href="/login">Login</a>
+                </li>
+                
+                 <li th:if="${username == null}" class="register">
+					<a href="/register">Register</a>
+                 </li>
+                 
+         </nav>
     </header>
 
     <div class="team-container">
@@ -36,7 +54,7 @@
             <h3>Giocatori</h3>
             <ul>
                 <li th:each="player : ${players}">
-                    <a th:href="@{/player/{id}(id=${player.id})}" th:text="${player.name} + ' ' + ${player.cognome}"></a> - 
+                    <a th:href="@{/player/{id}(id=${player.id})}" th:text="${player.name} + ' ' + ${player.surname}"></a> - 
                     <span th:text="${player.ruolo}"></span>
                 </li>
             </ul>

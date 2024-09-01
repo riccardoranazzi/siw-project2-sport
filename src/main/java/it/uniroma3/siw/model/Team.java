@@ -4,8 +4,10 @@ package it.uniroma3.siw.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Basic;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,10 +34,20 @@ public class Team {
 	    @JoinColumn(name="image_id")
 	    private Image image;
 	    
-	    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+	    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	    private List<Player> players = new ArrayList<>();
 	    
 	    private String indirizzo;
+	    
+	    public void addPlayer(Player player) {
+	    	player.setTeam(this);
+	    	players.add(player);
+	    }
+	    
+	    public void removePlayer(Player player) {
+	    	player.setTeam(null);
+	    	players.remove(player);
+	    }
 
 		public List<Player> getPlayers() {
 			return players;

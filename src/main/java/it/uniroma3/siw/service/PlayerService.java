@@ -23,14 +23,8 @@ public class PlayerService {
 	@Autowired ImageRepository imageRepository;
 
 	public Player createNewPlayer(Player player, MultipartFile imageFile) throws IOException{
-		Player newPlayer = new Player();
-		newPlayer.setDataInizioTesseramento(LocalDate.now());
-		newPlayer.setDataFineTesseramento(null);
-		newPlayer.setName(player.getName());
-		newPlayer.setSurname(player.getSurname());
-		newPlayer.setRuolo(player.getRuolo());
-		newPlayer.setTeam(null);
-		newPlayer.setLuogoNascita(player.getLuogoNascita());
+		player.setDataInizioTesseramento(LocalDate.now());
+		player.setDataFineTesseramento(null);
 		Image image = new Image();
 		image.setImageData(imageFile.getBytes());
 		image.setName(player.getName());
@@ -55,14 +49,16 @@ public class PlayerService {
 	        Player player = playerRepository.findById(playerId)
 	            .orElseThrow(() -> new IllegalArgumentException("ID giocatore non valido"));
 	        player.setTeam(team);
+	        team.addPlayer(player);
 	        playerRepository.save(player);
 	    }
 
 	    @Transactional
-	    public void removePlayerFromTeam(Long playerId) {
+	    public void removePlayerFromTeam(Long playerId, Team team) {
 	        Player player = playerRepository.findById(playerId)
 	            .orElseThrow(() -> new IllegalArgumentException("ID giocatore non valido"));
 	        player.setTeam(null);
+	        team.removePlayer(player);
 	        playerRepository.save(player);
 	    }
 

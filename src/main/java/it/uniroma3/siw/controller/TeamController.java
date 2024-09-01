@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -43,19 +44,24 @@ public class TeamController {
  @Autowired PlayerService playerService;
  
  //rendo disponibile team a tutti i metodi del controller
+ @Transactional
  @ModelAttribute("team")
  public Team getPresidentTeam() {
-     
+	 
      Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-     String username = auth.getName();
-
-     Credentials credentials = credentialsService.findByUsername(username);
-     User user = credentials.getUser();
      
-     if(!credentials.getRole().equals(Credentials.PRESIDENT_ROLE)) {
+     if((auth == null) || !auth.isAuthenticated() || (auth instanceof AnonymousAuthenticationToken)) {
     	 return null;
      }
      
+     String username = auth.getName();
+     Credentials credentials = credentialsService.findByUsername(username);
+	 
+	 if(!credentials.getRole().equals(Credentials.PRESIDENT_ROLE) || credentials==null) {
+    	 return null;
+     }
+     
+     User user = credentials.getUser();
      President president = user.getPresident();
      Team team = teamService.findByPresident(president);
      if (team == null) {
@@ -75,6 +81,7 @@ public class TeamController {
  public String showTeam(Model model, @PathVariable("teamId")Long teamId) {
 	 Team team = teamService.findById(teamId);
 	 model.addAttribute("team", team);
+	 model.addAttribute("players", team.getPlayers());
 	 return "team";
  }
  
@@ -104,19 +111,19 @@ public class TeamController {
      model.addAttribute("team", team);
      model.addAttribute("teamPlayers", team.getPlayers());
      model.addAttribute("playersWithoutTeam", playerService.findPlayersWithoutTeam());
-     return "manageYourTeam"; 
+     return "president/manageYourTeam"; 
  }
  
  @PostMapping("/removePlayerFromTeam")
- public String removePlayer(@RequestParam Long playerId) {
-     playerService.removePlayerFromTeam(playerId);
-     return "redirect:/team/manage";
+ public String removePlayer(@RequestParam Long playerId, @ModelAttribute("team")Team team) {
+     playerService.removePlayerFromTeam(playerId, team);
+     return "redirect:/president/manageYourTeam";
  }
 
  @PostMapping("/addPlayerToTeam")
  public String addPlayerToTeam(@RequestParam Long playerId, @ModelAttribute("team")Team team) {
      playerService.addPlayerToTeam(playerId, team);
-     return "redirect:/team/manage";
+     return "redirect:/president/manageYourTeam";
  }
 
 }
