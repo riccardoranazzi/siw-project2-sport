@@ -64,4 +64,9 @@ public class TeamService {
 		return teamRepository.findByPresident(president);
 	}
 
+	public void updateTeam(Team team) {
+		teamRepository.save(team);
+		
+	}
+
 }

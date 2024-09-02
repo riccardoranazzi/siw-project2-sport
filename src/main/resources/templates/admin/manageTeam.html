@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${team.nome} + ' - Dettagli Squadra'">Dettagli Squadra</title>
+    <title th:text="${team.name} + ' - Dettagli Squadra'">Dettagli Squadra</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
@@ -26,8 +26,7 @@
     <div class="manage-team-container">
         <h2>Aggiorna le Informazioni del Team</h2>
 
-        <!-- Form per aggiornare le informazioni del team -->
-        <form th:action="@{/team/update}" method="post" th:object="${team}">
+        <form th:action="@{/updateTeam}" method="post" th:object="${team}">
             <div class="form-group">
                 <label for="name">Nome Team:</label>
                 <input type="text" id="name" th:field="*{name}" required>
@@ -48,8 +47,8 @@
 
         <h2>Cambia Presidente del Team</h2>
 
-        <!-- Form per cambiare il presidente del team -->
-        <form th:action="@{/team/changePresident}" method="post">
+
+        <form th:action="@{/changePresident}" method="post">
             <div class="form-group">
                 <label for="presidentId">Seleziona Nuovo Presidente:</label>
                 <select id="presidentId" name="presidentId" required>
