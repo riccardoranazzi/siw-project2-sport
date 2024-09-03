@@ -46,8 +46,15 @@
                 <h2 th:text="${team.name}">Nome Squadra</h2>
                 <p><strong>Anno di Fondazione:</strong> <span th:text="${team.annoFondazione}"></span></p>
                 <p><strong>Indirizzo:</strong> <span th:text="${team.indirizzo}"></span></p>
-                <p><strong>Presidente:</strong> <span th:text="${team.president.name} + ' ' + ${team.president.surname}">Nome Presidente</span></p>
+                
+                <div th:if="${team.president != null}">
+                	<p><strong>Presidente:</strong> <span th:text="${team.president.name} + ' ' + ${team.president.surname}">Nome Presidente</span></p>
+            	</div>
+            	<div th:if="${team.president == null}">
+                	<p><strong>Presidente:</strong> Nessun presidente assegnato.</p>
+            	</div>               
             </section>
+            
         </div>
 
         <div class="players-list">
@@ -63,6 +70,10 @@
             </div>
         </div>
     </div>
+    
+     <footer>
+        <p>&copy; 2024 Il Ristorante del Gusto. Tutti i diritti riservati.</p>
+    </footer>
 </body>
 </html>
 

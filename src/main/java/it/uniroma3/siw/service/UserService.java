@@ -25,4 +25,13 @@ public class UserService {
 	public User findByUsername(String username) {
         return credentialsService.findByUsername(username).getUser();
     }
+
+	public Iterable<User> findAll() {
+		return userRepository.findAll();
+	}
+
+	public User findById(Long userId) {
+		return userRepository.findById(userId).get();
+		
+	}
 }

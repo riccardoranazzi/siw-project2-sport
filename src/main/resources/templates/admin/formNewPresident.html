@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="it" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Crea Nuova Squadra</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+    <header>
+       <div class="logo">
+		   <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
+            <h1><a href="/index">Federazione Sportiva</a></h1>          
+        </div>  
+      <nav>
+			<li class="username">
+				<a href="/profile" th:text="${username}">Username</a>
+            </li>
+            <li class="username">
+				<a href="/teams">Tutte le squadre</a>
+			</li>
+			 <li class="username">
+				<a href="/index">Homapage</a>
+			</li>
+            <li class="username">
+				 <a href="/logout">Logout</a>
+            </li>
+      </nav>
+    </header>
+
+    <section id="hero">
+        <h2>Nomina un Nuovo Presidente</h2>
+        <form th:action="@{/addNewPresident}" th:object="${president}" method="post">
+			     	
+        	 <div class="form-group">
+                <label for="user">Seleziona Utente:</label>
+                <select id="user" name="userId" required>
+                    <option value="" disabled selected>-- Seleziona Utente da promuovere --</option>
+                    <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name} + ' ' +${user.surname}"></option>
+                </select>
+            </div>
+     
+        
+         	<div class="form-group">
+            	<label for="dataNascita">Data di Nascita:</label>
+           		<input type="date" id="dataNascita" th:field="*{dataNascita}" />
+            	<div th:if="${#fields.hasErrors('dataNascita')}" th:errors="*{dataNascita}"></div>
+        	</div>
+        
+         	<div class="form-group">
+            	<label for="luogoNascita">Luogo di Nascita:</label>
+            	<input type="text" id="luogoNascita" th:field="*{luogoNascita}" />
+            	<div th:if="${#fields.hasErrors('luogoNascita')}" th:errors="*{luogoNascita}"></div>
+        	</div>
+        
+        
+        	<div class="form-group">
+            	<label for="codiceFiscale">Codice Fiscale:</label>
+            	<input type="text" id="codiceFiscale" th:field="*{codiceFiscale}" />
+            	<div th:if="${#fields.hasErrors('codiceFiscale')}" th:errors="*{codiceFiscale}"></div>
+        	</div>
+
+            <div class="form-group">
+                <button type="submit" class="btn">Nomina Presidente</button>
+            </div>
+      
+        </form>
+    </section>
+
+ 	<footer>
+        <p>&copy; 2024 Il Ristorante del Gusto. Tutti i diritti riservati.</p>
+    </footer>
+</body>
+</html>

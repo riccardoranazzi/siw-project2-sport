@@ -3,6 +3,7 @@ package it.uniroma3.siw.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +14,8 @@ import it.uniroma3.siw.model.President;
 import it.uniroma3.siw.model.Team;
 import it.uniroma3.siw.service.PresidentService;
 import it.uniroma3.siw.service.TeamService;
+import it.uniroma3.siw.service.UserService;
+import it.uniroma3.siw.validator.PresidentValidator;
 
 @Controller
 public class AdminController {
@@ -21,6 +24,10 @@ public class AdminController {
 	
 	@Autowired PresidentService presidentService;
 
+	@Autowired PresidentValidator presidentValidator;
+	
+	@Autowired UserService userService;
+	
 	@GetMapping("/manageTeam/{teamId}")
 	public String manageTeam(@PathVariable("teamId")Long teamId, Model model) {
 		Team team = teamService.findById(teamId);
@@ -56,6 +63,20 @@ public class AdminController {
 	        }
 
 	        return "redirect:/admin/manageTeam?teamId=" + teamId;
+	}
+	
+	@GetMapping("/formNewPresident")
+	public String formNewPresident(Model model) {
+		model.addAttribute("president", new President());
+		model.addAttribute("users", userService.findAll());
+		return "/admin/formNewPresident";
+	}
+	
+	@PostMapping("/addNewPresident")
+	public String AddNewPresident(@ModelAttribute("president")President president, BindingResult bindingResult, @RequestParam("userId") Long userId) {
+		presidentValidator.validate(president, bindingResult);
+		presidentService.createPresident(president, userId);
+		return "redirect:/admin/formNewTeam";
 	}
 }
 

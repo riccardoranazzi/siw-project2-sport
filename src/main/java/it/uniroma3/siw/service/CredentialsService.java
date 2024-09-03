@@ -34,4 +34,8 @@ public class CredentialsService {
 	        return null;
 	    }
 
+	public Credentials findByUser(User user) {
+		return credentialsRepository.findByUser(user);
+	}
+
 }
