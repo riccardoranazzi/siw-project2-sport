@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Storia della Federazione</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
+            <h1><a href="/index">Federazione Sportiva</a></h1>          
+        </div>  
+
+        <nav>
+			<li class="username">
+            	<a href="/index">Homepage</a>
+            </li>
+             <li th:if="${username != null}" class="username">
+                <a href="/profile" th:text="${username}">Username</a>
+            </li>
+                 
+            <li th:if="${username != null}" class="username">
+                <a href="/logout">Logout</a>
+            </li>
+                 
+            <li th:if="${username == null}" class="login">
+                <a href="/login">Login</a>
+            </li>
+                
+            <li th:if="${username == null}" class="register">
+                <a href="/register">Register</a>
+            </li>
+            
+        </nav>
+    </header>
+
+    <main class="history-container">
+        <section class="history-section">
+            <h2>Fondazione della Federazione</h2>
+            <p>La Federazione Sportiva è stata fondata nel 1920 con l'obiettivo di promuovere lo sport in tutto il paese...</p>
+            <img src="/images/403" alt="Fondazione della Federazione" class="history-image">
+        </section>
+
+        <section class="history-section">
+            <h2>Primi Anni di Attività</h2>
+            <p>Nei primi anni, la federazione ha organizzato numerosi eventi sportivi che hanno coinvolto centinaia di atleti...</p>
+            <img src="/images/405" alt="Primi Anni di Attività" class="history-image">
+        </section>
+
+        <section class="history-section">
+            <h2>Successi Internazionali</h2>
+            <p>Negli anni '80, la federazione ha iniziato a ottenere riconoscimenti internazionali, con atleti che hanno vinto medaglie...</p>
+            <img src="/images/404" alt="Successi Internazionali" class="history-image">
+        </section>
+
+        <section class="history-section">
+            <h2>Il Futuro della Federazione</h2>
+            <p>Oggi, la federazione continua a crescere e a innovare, con una forte enfasi sulla formazione dei giovani e sulla promozione di valori sportivi...</p>
+            <img src="/images/402" alt="Il Futuro della Federazione" class="history-image">
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Federazione Sportiva Roma Tre. Tutti i diritti riservati.</p>
+    </footer>
+</body>
+</html>

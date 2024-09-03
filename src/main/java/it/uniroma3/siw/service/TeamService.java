@@ -41,23 +41,17 @@ public class TeamService {
 		teamRepository.save(team);		
 	}
 
-	public Team createTeam(String name, int annoFondazione, String indirizzo, Long presidenteId,
-			MultipartFile imageFile) throws IOException{
+	public Team createTeam(Team team, Long presidenteId, MultipartFile imageFile) throws IOException{
 		Image image = new Image();
 		image.setImageData(imageFile.getBytes());
-		image.setName(name);
+		image.setName(team.getName());
 		image.setType(imageFile.getContentType());
 		image = imageRepository.save(image);
-		Team team = new Team();
-		team.setAnnoFondazione(annoFondazione);
-		team.setIndirizzo(indirizzo);
 		team.setImage(image);
-		team.setName(name);
 		President president = new President();
 		president = presidentService.findById(presidenteId);
 		team.setPresident(president);
 		return teamRepository.save(team);
-		
 	}
 
 	public Team findByPresident(President president) {
@@ -67,6 +61,10 @@ public class TeamService {
 	public void updateTeam(Team team) {
 		teamRepository.save(team);
 		
+	}
+
+	public boolean existsByName(String name) {
+		return teamRepository.existsByName(name);
 	}
 
 }

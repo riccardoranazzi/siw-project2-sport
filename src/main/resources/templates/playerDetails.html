@@ -37,7 +37,7 @@
          </nav>
     </header>
 
-    <div class="container">
+    <div class="player-container">
         <div class="player-details">
             <h2 th:text="${player.name} + ' ' + ${player.surname}">Nome Giocatore</h2>
             
@@ -48,17 +48,20 @@
             <p><strong>Luogo e Data di Nascita:</strong> <span th:text="${player.luogoNascita} + ' ' + ${player.dataNascita}">Data di Nascita</span></p>            
             <p><strong>Ruolo:</strong> <span th:text="${player.ruolo}">Ruolo</span></p>
 
-            <!-- Verifica se il giocatore è associato a una squadra -->
             <p th:if="${player.team != null}">
                 <strong>Squadra:</strong> <span th:text="${player.team.name}">Nome Squadra</span>
             </p>
+            
             <p th:if="${player.team == null}">
                 <strong>Squadra:</strong> <span>Non assegnato</span>
             </p>
+            
+          	<p><strong>Data Inzio Tesseramento:</strong> <span th:text="${player.dataInizioTesseramento}">Ruolo</span></p>
+            
         </div>
         
         <div class="actions">
-            <a th:href="@{/team/${player.team.id}}" class="btn">Torna alla lista giocatori</a>
+            <a th:href="@{'/team/' + ${player.team.id}}" class="btn">Torna alla lista giocatori</a>
         </div>
 
         <div class="actions">

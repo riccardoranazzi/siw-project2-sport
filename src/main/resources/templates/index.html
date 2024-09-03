@@ -6,46 +6,49 @@
     <title>Federazione Sportiva</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
-<body>
+<body class="image-background">
     <header>
-       <div class="logo">
-		   <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
+        <div class="logo">
+            <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
             <h1><a href="/index">Federazione Sportiva</a></h1>          
         </div>  
-       
+
         <nav>
-        		<li th:if="${username != null}" class="username">
-				 <a href="/profile" th:text="${username}">Username</a>
-                 </li>
+            <li th:if="${username != null}" class="username">
+                <a href="/profile" th:text="${username}">Username</a>
+            </li>
                  
-                 <li th:if="${username != null}" class="username">
-				 <a href="/logout">Logout</a>
-                 </li>
+            <li th:if="${username != null}" class="username">
+                <a href="/logout">Logout</a>
+            </li>
                  
-                <li th:if="${username == null}" class="login">
-                    <a href="/login">Login</a>
-                </li>
+            <li th:if="${username == null}" class="login">
+                <a href="/login">Login</a>
+            </li>
                 
-                 <li th:if="${username == null}" class="register">
-					<a href="/register">Register</a>
-                 </li>
-         </nav>
+            <li th:if="${username == null}" class="register">
+                <a href="/register">Register</a>
+            </li>
+        </nav>
     </header>
 
     <div class="container">
         <a href="/teams" class="teams">
             <h2>Le Squadre</h2>
-            <!-- Contenuto della sezione squadre -->
+           
         </a>
         <a href="/federation" class="federation">
             <h2>Informazioni sulla Federazione</h2>
-            <!-- Contenuto della sezione federazione -->
+           
+        </a>
+  
+        <a href="/sport" class="sport">
+            <h2>Scopri gli Sport</h2>
         </a>
     </div>
     
-     <footer>
+    <footer>
         <p>&copy; 2024 Federazione sport Roma Tre.</p>
     </footer>
-    
 </body>
 </html>

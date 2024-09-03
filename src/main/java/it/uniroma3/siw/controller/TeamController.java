@@ -3,6 +3,8 @@ package it.uniroma3.siw.controller;
 import java.io.IOException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -10,6 +12,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +31,7 @@ import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.PlayerService;
 import it.uniroma3.siw.service.PresidentService;
 import it.uniroma3.siw.service.TeamService;
+import it.uniroma3.siw.validator.TeamValidator;
 
 @Controller
 public class TeamController {
@@ -42,6 +46,11 @@ public class TeamController {
  @Autowired CredentialsService credentialsService;
  
  @Autowired PlayerService playerService;
+ 
+ @Autowired TeamValidator teamValidator;
+ 
+ private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
+
  
  //rendo disponibile team a tutti i metodi del controller
  @Transactional
@@ -87,16 +96,19 @@ public class TeamController {
  
  @GetMapping("/formNewTeam")
  public String formNewTeam(Model model) {
-	   model.addAttribute("team", new Team());
+	   model.addAttribute("newTeam", new Team());
 	   model.addAttribute("presidents", presidentService.findAll());
  	return "admin/formNewTeam";
  }
  
  @PostMapping("/admin/newTeam")
- public String createProduct(@RequestParam("name") String name, @RequestParam("annoFondazione") int annoFondazione, @RequestParam("indirizzo") String indirizzo, @RequestParam("presidenteId") Long presidenteId, @RequestParam("image") MultipartFile imageFile) throws IOException {
-     Team team = teamService.createTeam(name, annoFondazione, indirizzo, presidenteId,  imageFile);
-     presidentService.setTeam(presidenteId, team);
+ public String createProduct(@ModelAttribute("newTeam")Team newTeam, BindingResult bindingResult, @RequestParam("presidentId") Long presidentId, @RequestParam("image") MultipartFile imageFile, Model model) throws IOException {
+	 teamValidator.validate(newTeam, bindingResult);
+     teamService.createTeam(newTeam, presidentId,  imageFile);
+     presidentService.setTeam(presidentId, newTeam);
      return "redirect:/teams";
+     
+    
  }
  
  @GetMapping("/admin/manageTeams")

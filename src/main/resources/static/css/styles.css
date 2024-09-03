@@ -5,6 +5,26 @@ body {
     background-color: #f4f4f4;
 }
 
+body.image-background {
+    background-image: url('/images/352');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position:relative;
+    min-height: 100vh;
+}
+
+body.image-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); 
+    z-index: -1;
+}
+
 header{
     display: flex;
     justify-content: space-between;
@@ -75,11 +95,15 @@ header nav a {
 }
 
 .container .teams {
-    background-color: #e3f2fd; /* Colore specifico per la sezione Teams */
+    background-color: #e3f2fd; 
 }
 
 .container .federation {
-    background-color: #ffebee; /* Colore specifico per la sezione Federation */
+    background-color: #ffebee; 
+}
+
+.container.sport{
+	background-color: #4CAF50;
 }
 
 h2 {
@@ -259,7 +283,7 @@ section#hero h2 {
 footer {
     text-align: center;
     padding: 10px;
-    background-color: #007bff;
+    background-color: rgb(40, 96, 200);
     color: white;
     position: fixed;
     bottom: 0;
@@ -267,8 +291,10 @@ footer {
 }
 
 .player-details {
+	margin-top: 20px;
     text-align: center;
     margin-bottom: 20px;
+    margin-bottom:20px;
 }
 
 .player-image img {
@@ -281,6 +307,7 @@ footer {
 
 .actions {
     text-align: center;
+    margin-top:50px;
 }
 
 .actions .btn {
@@ -416,22 +443,22 @@ footer {
     flex-direction: column;
     align-items: center;
     height: 100%;
-    justify-content: space-between; /* Assicura che gli elementi siano distribuiti */
+    justify-content: space-between; 
 }
 
 .team-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Centra il contenuto all'interno della card */
-    flex-grow: 1; /* Occupa lo spazio disponibile */
-    margin-bottom: 20px; /* Distanza dalla scritta */
+    justify-content: center;
+    flex-grow: 1; 
+    margin-bottom: 20px; 
 }
 
 .team-image img {
-    width: 100%; /* Occupa tutto lo spazio disponibile in larghezza */
-    max-height: 200px; /* Limita l'altezza per mantenere la proporzione */
-    object-fit: contain; /* Assicura che l'immagine sia contenuta senza distorsioni */
+    width: 100%; 
+    max-height: 200px;
+    object-fit: contain; 
     
 }
 
@@ -446,6 +473,8 @@ footer {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     margin-top: auto; /* Spinge il quadrato verso il fondo */
 }
+
+
 
 .register-prompt {
     margin-top: 20px;
@@ -520,4 +549,36 @@ button[type="submit"] {
 
 button[type="submit"]:hover {
     background-color: #45a049;
+}
+
+main.history-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.history-section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.history-section h2 {
+    margin-top: 0;
+}
+
+.history-section p {
+    margin-bottom: 0;
+    flex: 1; /* Prende lo spazio disponibile accanto all'immagine */
+}
+
+.history-image {
+    width: 300px;
+    height: auto;
+    border-radius: 8px;
 }

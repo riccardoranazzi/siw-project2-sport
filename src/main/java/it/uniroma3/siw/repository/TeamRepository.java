@@ -9,4 +9,6 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
 	Team findByPresident(President president);
 
+	boolean existsByName(String name);
+
 }

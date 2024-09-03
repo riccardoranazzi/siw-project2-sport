@@ -17,19 +17,18 @@
 			<li class="username">
 				<a href="/profile" th:text="${username}">Username</a>
             </li>
-            <li>
-				<a href="/teams">Tutte le squadre</a>
-			</li>
             <li class="username">
 				 <a href="/logout">Logout</a>
             </li>
+            <li class="username">
+				<a href="/president/manageYourTeam">Gestisci la tua squadra</a>
+			</li>
         </nav>
     </header>
 
     
     <div class="manage-team-page">
         <div class="player-management">
-            
             <div class="team-players">
                 <h2>Giocatori della Squadra</h2>
                 <ul>
@@ -58,6 +57,12 @@
                 </ul>
             </div>
         </div>
+        
+        
+        <div class="actions">
+            <a th:href="@{/president/formNewPlayer}" class="btn">Aggiungi un nuovo Giocatore</a>
+        </div>
+        
     </div>
 </body>
 </html>
