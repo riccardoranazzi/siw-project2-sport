@@ -49,21 +49,24 @@ public class AdminController {
 		return "redirect:/admin/manageTeam?teamId=" + team.getId();
 	}
 	
-	@PostMapping("/changePresident")
-	public String changePresident(Model model, @RequestParam("presidentId")Long presidentId, @RequestParam("teamId")Long teamId) {
-	     Team team = teamService.findById(teamId);
-	        President newPresident = presidentService.findById(presidentId);
-	        
-	        if (team != null && newPresident != null) {
-	            team.setPresident(newPresident);
-	            teamService.save(team);
-	            model.addAttribute("message", "Il presidente del team è stato cambiato con successo.");
-	        } else {
-	            model.addAttribute("errorMessage", "Errore nel cambiare il presidente. Verificare i dati inseriti.");
-	        }
-
-	        return "redirect:/admin/manageTeam?teamId=" + teamId;
+	@PostMapping("/manageTeam/{teamId}/changePresident")
+	public String changePresident(@PathVariable("teamId") Long teamId, 
+	                              @RequestParam("presidentId") Long presidentId, Model model) {
+	    Team team = teamService.findById(teamId);
+	    President newPresident = presidentService.findById(presidentId);
+	    
+	    if (team != null && newPresident != null) {
+	        team.setPresident(newPresident);
+	        teamService.save(team);
+	        newPresident.setTeam(team);
+	        presidentService.save(newPresident);
+	        model.addAttribute("message", "Il presidente del team è stato cambiato con successo.");
+	    } else {
+	        return "redirect:/error";
+	    }
+	    return "redirect:/manageTeam/" + teamId;
 	}
+
 	
 	@GetMapping("/formNewPresident")
 	public String formNewPresident(Model model) {
@@ -76,7 +79,7 @@ public class AdminController {
 	public String AddNewPresident(@ModelAttribute("president")President president, BindingResult bindingResult, @RequestParam("userId") Long userId) {
 		presidentValidator.validate(president, bindingResult);
 		presidentService.createPresident(president, userId);
-		return "redirect:/admin/formNewTeam";
+		return "redirect:/formNewTeam";
 	}
 }
 

@@ -21,6 +21,17 @@
             <a href="/index"><img src="/images/202" alt="Logo Federazione"></a>
             <h1><a href="/index">Federazione Sportiva</a></h1>
         </div>
+        
+         <nav>
+			
+            	<a href="/logout">Logout</a>
+            	
+            	<a href="/manageTeams">Gestion Squadre</a>
+            	
+            	<a href="/formNewPresident">Nomina Presidente</a>
+            
+        </nav>
+        
     </header>
 
     <div class="manage-team-container">
@@ -45,10 +56,16 @@
             <button type="submit">Aggiorna Informazioni Team</button>
         </form>
 
-        <h2>Cambia Presidente del Team</h2>
+        <h2 class="h2-manageTeam">Cambia Presidente del Team</h2>
 
+        <p th:if="${team.president != null}">
+            <strong>Presidente Attuale:</strong> <span th:text="${team.president.name} + ' ' + ${team.president.surname}">Nome Presidente</span>
+        </p>
+        <p th:if="${team.president == null}">
+            <strong>Presidente Attuale:</strong> Nessun presidente assegnato.
+        </p>
 
-        <form th:action="@{/changePresident}" method="post">
+        <form th:action="@{'/manageTeam/' + ${team.id} + '/changePresident'}" method="post">
             <div class="form-group">
                 <label for="presidentId">Seleziona Nuovo Presidente:</label>
                 <select id="presidentId" name="presidentId" required>

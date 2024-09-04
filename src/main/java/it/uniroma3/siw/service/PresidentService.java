@@ -54,22 +54,13 @@ public class PresidentService {
 		if (credentials == null) {
 	        throw new IllegalArgumentException("Credentials not found for user with ID: " + userId);
 	    }
-		/*
-		President newPresident = new President();
-		
-		newPresident.setName(user.getName());
-		newPresident.setSurname(user.getSurname());
-		newPresident.setUser(user);
-		newPresident.setDataNascita(president.getDataNascita());
-		newPresident.setLuogoNascita(president.getLuogoNascita());
-		newPresident.setCodiceFiscale(president.getCodiceFiscale());
-		*/
 		president.setName(user.getName());
 		president.setSurname(user.getSurname());
 		credentials.setRole("PRESIDENTIAL_ROLE");
 		credentialsService.saveCredentials(credentials);
-		user.setPresident(president);
+		president.setUser(user);
+		presidentRepository.save(president);
 		userService.saveUser(user);
-		return presidentRepository.save(president);
+		return president;
 	}
 }
