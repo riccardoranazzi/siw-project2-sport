@@ -47,7 +47,6 @@ public class AuthenticationController {
         return null; // Nessun utente autenticato
     }
 	
-
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
     	model.addAttribute("userRegistrationDto", new UserRegistrationDto());
@@ -78,7 +77,10 @@ public class AuthenticationController {
         if(credentials.getRole().equals(Credentials.PRESIDENT_ROLE)) {
 			return "president/indexPresident";
 		}
-		return "index";
+        if(credentials.getRole().equals(Credentials.DEFAULT_ROLE)) {
+        	return "index";
+        }
+        return "index";
     }
     
     @GetMapping("/logout")
@@ -106,6 +108,7 @@ public class AuthenticationController {
     			return "president/indexPresident";
     		}
     	} 	
+    	
     		return "index";
     }
     
@@ -130,8 +133,7 @@ public class AuthenticationController {
         	 model.addAttribute("errorMessage", "Username già esistente. Scegli un altro username.");
              return "formRegister";
         }
-        try {
-            
+        try {           
             credentials.setPassword(passwordEncoder.encode(credentials.getPassword()));
             credentials.setUser(user);
             credentials.setRole(Credentials.DEFAULT_ROLE);
@@ -144,7 +146,6 @@ public class AuthenticationController {
             model.addAttribute("errorMessage", "Errore durante la registrazione, per favore riprova");
             return "formRegister";
         }
-        
        
     }
     

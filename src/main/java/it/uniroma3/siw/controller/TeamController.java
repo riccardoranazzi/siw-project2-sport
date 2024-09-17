@@ -69,10 +69,12 @@ public class TeamController {
 	 if(!credentials.getRole().equals(Credentials.PRESIDENT_ROLE) || credentials==null) {
     	 return null;
      }
-     
      User user = credentials.getUser();
      President president = user.getPresident();
-     Team team = teamService.findByPresident(president);
+     if (president == null) {
+         throw new IllegalStateException("Questo utente non é un presidente!");
+     }
+     Team team = president.getTeam();
      if (team == null) {
          throw new IllegalStateException("Il presidente non è associato a nessuna squadra.");
      }

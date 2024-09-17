@@ -56,8 +56,9 @@ public class PresidentService {
 	    }
 		president.setName(user.getName());
 		president.setSurname(user.getSurname());
-		credentials.setRole("PRESIDENTIAL_ROLE");
+		credentials.setRole("PRESIDENT_ROLE");
 		credentialsService.saveCredentials(credentials);
+		user.setPresident(president);
 		president.setUser(user);
 		presidentRepository.save(president);
 		userService.saveUser(user);
